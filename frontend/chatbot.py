@@ -67,7 +67,7 @@ with st.sidebar:
 # ------------------------------
 # Main UI: Image & Chat
 # ------------------------------
-st.header("🖼️ Image Chatbot")
+st.header("Image Chatbot")
 
 if st.session_state["image_url"]:
     # display image
