@@ -2,6 +2,8 @@ from datetime import datetime
 import streamlit as st
 import requests
 from PIL import Image
+from dotenv import load_dotenv
+import os
 
 # ------------------------------
 # Backend endpoints
