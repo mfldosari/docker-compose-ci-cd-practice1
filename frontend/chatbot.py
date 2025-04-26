@@ -8,10 +8,10 @@ from PIL import Image
 # ------------------------------
 #UPLOAD_IMAGE_URL      = "http://127.0.0.1:5000/upload_image/"
 #IMAGE_RECOGNITION_URL = "http://127.0.0.1:5000/image_recognition/"
+load_dotenv()
 
-
-UPLOAD_IMAGE_URL = "https://fastapiapp.eastus.azurecontainerapps.io/upload_image/"
-IMAGE_RECOGNITION_URL = "https://fastapiapp.eastus.azurecontainerapps.io/image_recognition/"
+UPLOAD_IMAGE_URL = os.getenv("UPLOAD_IMAGE_URL")
+IMAGE_RECOGNITION_URL =  os.getenv("IMAGE_RECOGNITION_URL") 
 
 # ------------------------------
 # Avatar helper
