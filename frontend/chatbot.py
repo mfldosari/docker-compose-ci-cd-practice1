@@ -4,16 +4,23 @@ import requests
 from PIL import Image
 from dotenv import load_dotenv
 import os
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
 
+load_dotenv()
+keyVaultName = os.environ["KEY_VAULT_NAME"]
+KVUri = f"https://{keyVaultName}.vault.azure.net"
+
+credential = DefaultAzureCredential()
+client = SecretClient(vault_url=KVUri, credential=credential)
 # ------------------------------
 # Backend endpoints
 # ------------------------------
-#UPLOAD_IMAGE_URL      = "http://127.0.0.1:5000/upload_image/"
-#IMAGE_RECOGNITION_URL = "http://127.0.0.1:5000/image_recognition/"
-load_dotenv()
 
-UPLOAD_IMAGE_URL = os.getenv("UPLOAD_IMAGE_URL")
-IMAGE_RECOGNITION_URL =  os.getenv("IMAGE_RECOGNITION_URL") 
+
+UPLOAD_IMAGE_URL = client.get_secret('UPLOAD_IMAGE_URL').value
+IMAGE_RECOGNITION_URL = client.get_secret('IMAGE_RECOGNITION_URL').value
+
 
 # ------------------------------
 # Avatar helper
