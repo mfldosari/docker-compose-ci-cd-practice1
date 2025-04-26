@@ -43,10 +43,6 @@ if "image_url" not in st.session_state:
     st.session_state["messages"]   = []
 
 # ------------------------------
-# Inject CSS for fixed layout and hide preview
-# ------------------------------
-
-# ------------------------------
 # Sidebar: upload & reset
 # ------------------------------
 with st.sidebar:
