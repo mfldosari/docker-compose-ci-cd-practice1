@@ -18,8 +18,8 @@ client = SecretClient(vault_url=KVUri, credential=credential)
 # ------------------------------
 
 
-UPLOAD_IMAGE_URL = client.get_secret('UPLOAD_IMAGE_URL').value
-IMAGE_RECOGNITION_URL = client.get_secret('IMAGE_RECOGNITION_URL').value
+UPLOAD_IMAGE_URL = client.get_secret('UPLOAD-IMAGE-URL').value
+IMAGE_RECOGNITION_URL = client.get_secret('IMAGE-RECOGNITION-URL').value
 
 
 # ------------------------------
