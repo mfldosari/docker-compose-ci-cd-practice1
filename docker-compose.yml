@@ -1,24 +1,12 @@
-version: "3.9"
+version: '3.8'
 
 services:
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: image-backend
+  fastapi:
+    image: docker12registry.azurecr.io/fastapi-app:latest
     ports:
       - "5000:5000"
-    env_file:
-      - ./backend/.env
-    restart: unless-stopped
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: image-frontend
+  streamlit:
+    image: docker12registry.azurecr.io/streamlit-app:latest
     ports:
       - "8501:8501"
-    depends_on:
-      - backend
-    restart: unless-stopped
