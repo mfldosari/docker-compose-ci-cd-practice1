@@ -5,13 +5,19 @@ from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from openai import OpenAI
 from azure.storage.blob import BlobClient
 from dotenv import load_dotenv
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
 
 load_dotenv()
+keyVaultName = os.environ["KEY_VAULT_NAME"]
+KVUri = f"https://{keyVaultName}.vault.azure.net"
 
-# Config
-OPENAI_API_KEY         = os.getenv("OPENAI_API_KEY")
-AZURE_STORAGE_SAS_URL  = os.getenv("AZURE_STORAGE_SAS_URL")       # e.g. https://<acct>.blob.core.windows.net?<sas>
-AZURE_STORAGE_CONTAINER= os.getenv("AZURE_STORAGE_CONTAINER")     # e.g. "my-container"
+credential = DefaultAzureCredential()
+client = SecretClient(vault_url=KVUri, credential=credential)
+
+OPENAI_API_KEY = client.get_secret('OPENAI-API-KEY').value
+AZURE_STORAGE_SAS_URL = client.get_secret('AZURE-STORAGE-SAS-URL').value
+AZURE_STORAGE_CONTAINER = client.get_secret('AZURE-STORAGE-CONTAINER').value
 
 # Parse once at startup
 _storage_account_url, _sas_token = AZURE_STORAGE_SAS_URL.split("?", 1)

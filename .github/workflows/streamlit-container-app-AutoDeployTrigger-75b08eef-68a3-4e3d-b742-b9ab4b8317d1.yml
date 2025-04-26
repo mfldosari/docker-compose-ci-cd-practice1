@@ -2,14 +2,6 @@ name: Trigger auto deployment for streamlit-container-app
 
 # When this action will be executed
 on:
-  # Automatically trigger it when detected changes in repo
-  push:
-    branches: 
-      [ main ]
-    paths:
-    - '**'
-    - '.github/workflows/streamlit-container-app-AutoDeployTrigger-75b08eef-68a3-4e3d-b742-b9ab4b8317d1.yml'
-
   # Allow manual trigger 
   workflow_dispatch:      
 

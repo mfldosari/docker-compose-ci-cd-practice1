@@ -2,16 +2,7 @@ name: Trigger auto deployment for fastapi-container-app
 
 # When this action will be executed
 on:
-  # Automatically trigger it when detected changes in repo
-  push:
-    branches: 
-      [ main ]
-    paths:
-    - '**'
-    - '.github/workflows/fastapi-container-app-AutoDeployTrigger-ee4e4336-73fe-4955-b1ba-8dc807bea7ff.yml'
-
-  # Allow manual trigger 
-  workflow_dispatch:      
+  workflow_dispatch:   
 
 jobs:
   build-and-deploy:

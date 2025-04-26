@@ -4,3 +4,7 @@ python-dotenv
 azure-storage-blob
 openai
 python-multipart
+azure-core==1.32.0
+azure-identity==1.19.0
+azure-keyvault-secrets==4.9.0
+azure-storage-blob==12.24.0
