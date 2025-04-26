@@ -1,26 +1,28 @@
-# Resource group name where the VM will be created
-variable "rg_name" {
-  description = "The name of the resource group"
-}
-
-# Azure region where resources will be deployed
-variable "location" {
-  description = "The location of the resources (e.g., East US)"
-}
-
 ##########################
-# Azure Subscription Info
+# Variable Definitions
 ##########################
 
-# Azure Tenant ID
-variable "tenant_id" {
-  description = "Azure Tenant ID"
+# Variable for Azure Key Vault Name
+variable "keyvault_name" {
+  description = "The name of the Azure Key Vault"
   type        = string
 }
 
-# Azure Subscription ID
-variable "subscription_id" {
-  description = "Azure Subscription ID"
+# Variable for Resource Group Name
+variable "rg_name" {
+  description = "The resource group name"
+  type        = string
+}
+
+# Variable for Azure Location
+variable "location" {
+  description = "The Azure location for resources"
+  type        = string
+}
+
+# Variable for Azure Tenant ID
+variable "tenant_id" {
+  description = "Azure Tenant ID"
   type        = string
 }
 
@@ -49,20 +51,14 @@ variable "PROJ_OPENAI_API_KEY" {
   sensitive   = true
 }
 
-variable "storage_account_name" {
-  description = "The name of the storage account"
+variable "PROJ_AZURE_STORAGE_SAS_URL" {
   type        = string
+  description = "The Azure Storage SAS URL to store in Key Vault"
+  sensitive   = true
 }
 
-variable "storage_container_name" {
-  description = "The name of the storage account"
+variable "PROJ_AZURE_STORAGE_CONTAINER" {
   type        = string
+  description = "The Azure Storage Container to store in Key Vault"
+  sensitive   = true
 }
-
-
-# Variable for Azure Key Vault Name
-variable "keyvault_name" {
-  description = "The name of the Azure Key Vault"
-  type        = string
-}
-
