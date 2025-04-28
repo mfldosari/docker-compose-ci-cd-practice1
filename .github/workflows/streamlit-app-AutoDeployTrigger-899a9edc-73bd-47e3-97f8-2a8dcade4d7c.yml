@@ -1,0 +1,48 @@
+name: Trigger auto deployment for streamlit-app
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/streamlit-app-AutoDeployTrigger-899a9edc-73bd-47e3-97f8-2a8dcade4d7c.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.STREAMLITAPP_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.STREAMLITAPP_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.STREAMLITAPP_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}/frontend
+          _dockerfilePathKey_: _dockerfilePath_
+          registryUrl: dockerreg5271.azurecr.io
+          registryUsername: ${{ secrets.STREAMLITAPP_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.STREAMLITAPP_REGISTRY_PASSWORD }}
+          containerAppName: streamlit-app
+          resourceGroup: tr-ma-containers-rg
+          imageToBuild: dockerreg5271.azurecr.io/streamlit-app:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
