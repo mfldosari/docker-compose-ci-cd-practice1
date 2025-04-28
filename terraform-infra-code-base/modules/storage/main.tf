@@ -8,11 +8,11 @@ resource "azurerm_storage_account" "this" {
   name                     = var.storage_account_name
   resource_group_name      = var.rg_name
   location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_tier             = var.storage_account_tier
+  account_replication_type = var.storage_account_replication_type
 
   tags = {
-    made_by = "terraform"
+    managed_by = var.tag
   }
 }
 
@@ -20,7 +20,7 @@ resource "azurerm_storage_account" "this" {
 resource "azurerm_storage_container" "this" {
   name                  = var.storage_container_name 
   storage_account_name  = azurerm_storage_account.this.name
-  container_access_type = "private"
+  container_access_type = var.container_access_type
 
   depends_on = [azurerm_storage_account.this]
 }
@@ -30,8 +30,8 @@ data "azurerm_storage_account_blob_container_sas" "this" {
   connection_string = azurerm_storage_account.this.primary_connection_string
   container_name    = azurerm_storage_container.this.name
 
-  start  = "2024-01-01"
-  expiry = "2030-01-01"
+start  = var.container_date["start"]
+expiry = var.container_date["end"]
 
   permissions {
     read   = true
@@ -41,4 +41,5 @@ data "azurerm_storage_account_blob_container_sas" "this" {
     add    = true
     create = true
   }
+  https_only = true
 }

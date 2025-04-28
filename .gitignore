@@ -127,7 +127,7 @@ celerybeat.pid
 /terraform-infra-code-base/terraform.tfstate
 # SageMath parsed files
 *.sage.py
-
+terraform.tfstate.backup
 # Environments
 .env
 .venv

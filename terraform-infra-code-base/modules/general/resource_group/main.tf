@@ -3,6 +3,9 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 
   tags = {
-    manged_by = "terraform"
+    manged_by = var.tag
+  }
+    lifecycle {
+    prevent_destroy = true
   }
 }
