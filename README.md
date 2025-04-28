@@ -1,5 +1,5 @@
 # docker-compose-ci-cd-practice1
-
+#
 # Chatbot Image Recognition
 
 This project is a chatbot that recognizes images and answers questions related to them. It is containerized using Docker, deployed on Azure, and uses CI/CD with GitHub Actions.
